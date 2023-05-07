@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Playfolio: Game Logger</title>
+</head>
+<body>
+  <h1>Steam Game Library</h1>
+
+  <div id="gameLibrary"></div>
+
+  <script>
+    // Function to fetch the game library data from Steam API
+    function fetchGameLibrary() {
+      const steamApiKey = steamkey.php; // Replace with your Steam API key
+
+      // Make an HTTP GET request to Steam API endpoint
+      fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${steamApiKey}&steamid=YOUR_STEAM_ID&include_appinfo=true`)
+        .then(response => response.json())
+        .then(data => {
+          const gameLibrary = data.response.games;
+
+          // Display the game library data
+          const gameLibraryDiv = document.getElementById('gameLibrary');
+
+          gameLibraryDiv.innerHTML = '<h2>Game Library:</h2>';
+
+          if (gameLibrary.length === 0) {
+            gameLibraryDiv.innerHTML += '<p>No games found in your library.</p>';
+          } else {
+            gameLibrary.forEach(game => {
+              gameLibraryDiv.innerHTML += `<p>${game.name}</p>`;
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Call the fetchGameLibrary function when the page is loaded
+    window.addEventListener('load', fetchGameLibrary);
+  </script>
+</body>
+</html>
