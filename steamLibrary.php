@@ -18,6 +18,7 @@
   
   <div id="searchContainer">
     <input type="text" id="searchInput" placeholder="Search for a game...">
+    <button id="searchButton">Search</button>
     <div id="suggestionsContainer"></div>
   </div>
 

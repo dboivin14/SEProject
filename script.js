@@ -48,4 +48,14 @@ function fetchGameSuggestions(query) {
   // Event listener for search input changes
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', handleSearchInput);
+
+  // Function to handle search button click
+function handleSearchButtonClick() {
+    handleSearchInput();
+  }
+  
+  // Event listener for search button click
+  const searchButton = document.getElementById('searchButton');
+  searchButton.addEventListener('click', handleSearchButtonClick);
+  
   
