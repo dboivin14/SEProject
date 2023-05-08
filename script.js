@@ -10,7 +10,7 @@ function handleSearchInput() {
     // Fetch game suggestions based on the search term
     if (searchTerm.length > 0) {
       // Make an HTTP GET request to fetch game suggestions
-      fetch(`https://api.example.com/search?term=${searchTerm}`)
+      fetch(`https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=${steamApiKey}`)
         .then(response => response.json())
         .then(data => {
           const gameSuggestions = data.suggestions;
