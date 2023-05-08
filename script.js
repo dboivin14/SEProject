@@ -1,56 +1,42 @@
-// Function to fetch game suggestions from Steam API based on search query
-function fetchGameSuggestions(query) {
-    const steamApiKey = 'steamkey.php'; 
-  
-    // Make an HTTP GET request to Steam API endpoint for game suggestions
-    return fetch(`https://api.steampowered.com/IStoreService/GetAppList/v1/?key=${steamApiKey}&query=${query}`)
-      .then(response => response.json())
-      .then(data => {
-        const suggestions = data.response.items;
-        return suggestions;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        return [];
-      });
-  }
-  
-  // Function to handle search input changes
-  function handleSearchInput() {
+// Function to handle search input
+function handleSearchInput() {
     const searchInput = document.getElementById('searchInput');
     const suggestionsContainer = document.getElementById('suggestionsContainer');
+    const searchTerm = searchInput.value.trim();
   
-    const query = searchInput.value.trim();
+    // Clear suggestions container
+    suggestionsContainer.innerHTML = '';
   
-    if (query.length === 0) {
-      suggestionsContainer.innerHTML = '';
-      return;
+    // Fetch game suggestions based on the search term
+    if (searchTerm.length > 0) {
+      // Make an HTTP GET request to fetch game suggestions
+      fetch(`https://api.example.com/search?term=${searchTerm}`)
+        .then(response => response.json())
+        .then(data => {
+          const gameSuggestions = data.suggestions;
+  
+          // Display the game suggestions
+          if (gameSuggestions.length === 0) {
+            suggestionsContainer.innerHTML = '<p>No game suggestions found.</p>';
+          } else {
+            gameSuggestions.forEach(suggestion => {
+              suggestionsContainer.innerHTML += `<p>${suggestion}</p>`;
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
-  
-    // Fetch game suggestions based on search query
-    fetchGameSuggestions(query)
-      .then(suggestions => {
-        suggestionsContainer.innerHTML = '';
-  
-        if (suggestions.length === 0) {
-          suggestionsContainer.innerHTML = '<p>No suggestions found.</p>';
-        } else {
-          suggestions.forEach(suggestion => {
-            const suggestionLink = document.createElement('a');
-            suggestionLink.href = `search-results.html?query=${encodeURIComponent(suggestion.name)}`;
-            suggestionLink.textContent = suggestion.name;
-            suggestionsContainer.appendChild(suggestionLink);
-          });
-        }
-      });
   }
   
-  // Event listener for search input changes
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', handleSearchInput);
-
   // Function to handle search button click
-function handleSearchButtonClick() {
+  function handleSearchButtonClick() {
+    handleSearchInput();
+  }
+  
+  // Function to handle search input keyup event
+  function handleSearchInputKeyup() {
     handleSearchInput();
   }
   
@@ -58,4 +44,7 @@ function handleSearchButtonClick() {
   const searchButton = document.getElementById('searchButton');
   searchButton.addEventListener('click', handleSearchButtonClick);
   
+  // Event listener for search input keyup event
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('keyup', handleSearchInputKeyup);
   
