@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
-  <title>Playfolio: Game Logger</title>
+  <title>Steam Game Library</title>
 </head>
 <body>
-  <h1>Steam Game Library</h1>
-
-  <div id="gameLibrary"></div>
+  <header>
+    <h1>Steam Game Library</h1>
+  </header>
+  
+  <div id="gameLibrary">
+    <h2>Loading...</h2>
+  </div>
 
   <script>
     // Function to fetch the game library data from Steam API
     function fetchGameLibrary() {
-      const steamApiKey = steamkey.php; // Replace with your Steam API key
+      const steamApiKey = steamkey.php;
 
       // Make an HTTP GET request to Steam API endpoint
       fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${steamApiKey}&steamid=YOUR_STEAM_ID&include_appinfo=true`)
