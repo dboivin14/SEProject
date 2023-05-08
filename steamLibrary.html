@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Steam Game Library</title>
+  <title>Find a Game that you want to play or you already own!</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
   <header>
-    <h1>Steam Game Library</h1>
+    <h1>Steam Game Search</h1>
   </header>
-  
-  <div id="gameLibrary">
-    <h2>Loading...</h2>
+
+  <div id="searchForm">
+    <form onsubmit="searchGame(); return false;">
+      <label for="searchInput">Search for a game:</label>
+      <input type="text" id="searchInput" name="searchInput">
+      <input type="submit" value="Search">
+    </form>
   </div>
 
+  <div id="searchResults"></div>
+
   <script>
-    // Function to fetch the game library data from Steam API
-    function fetchGameLibrary() {
+    function searchGame() {
       const steamApiKey = steamkey.php;
+      const searchInput = document.getElementById('searchInput').value;
+      const searchResultsDiv = document.getElementById('searchResults');
+
+      // Clear previous search results
+      searchResultsDiv.innerHTML = '';
 
       // Make an HTTP GET request to Steam API endpoint
-      fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${steamApiKey}&steamid=YOUR_STEAM_ID&include_appinfo=true`)
+      fetch(`https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=$steamkey.php`)
         .then(response => response.json())
         .then(data => {
-          const gameLibrary = data.response.games;
+          const gameList = data.applist.apps;
 
-          // Display the game library data
-          const gameLibraryDiv = document.getElementById('gameLibrary');
+          // Search for the game in the list
+          const searchResults = gameList.filter(game => game.name.toLowerCase().includes(searchInput.toLowerCase()));
 
-          gameLibraryDiv.innerHTML = '<h2>Game Library:</h2>';
-
-          if (gameLibrary.length === 0) {
-            gameLibraryDiv.innerHTML += '<p>No games found in your library.</p>';
+          // Display the search results
+          if (searchResults.length === 0) {
+            searchResultsDiv.innerHTML = '<p>No results found.</p>';
           } else {
-            gameLibrary.forEach(game => {
-              gameLibraryDiv.innerHTML += `<p>${game.name}</p>`;
+            searchResults.forEach(game => {
+              searchResultsDiv.innerHTML += `<p>${game.name}</p>`;
             });
           }
         })
@@ -40,9 +51,6 @@
           console.error('Error:', error);
         });
     }
-
-    // Call the fetchGameLibrary function when the page is loaded
-    window.addEventListener('load', fetchGameLibrary);
   </script>
 </body>
 </html>
