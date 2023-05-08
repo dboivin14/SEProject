@@ -2,20 +2,18 @@
 <html>
 <head>
   <title>Steam Game Library</title>
- 
     <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
   <header>
     <h1>Steam Game Library</h1>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="steamLibrary.html">Games</a>
-        <a href="login.html">Log In</a>
-        <a href="registration.html">Sign Up</a>
-      </nav>
+    <a href="index.html">Home</a>
+    <a href="steamLibrary.html">Games</a>
+    <a href="login.html">Log In</a>
+    <a href="registration.html">Sign Up</a>
+  </nav>
   </header>
   
   <div id="gameLibrary">
@@ -25,10 +23,10 @@
   <script>
     // Function to fetch the game library data from Steam API based on search query and filters
     function fetchGameLibrary() {
-      const steamApiKey = steamkey.php; // Replace with your Steam API key
+      const steamApiKey = 'steamkey.php';
 
-      //const searchQuery = 'YOUR_SEARCH_QUERY'; 
-      //const genreFilter = 'YOUR_GENRE_FILTER'; 
+      //const searchQuery = '';
+     // const genreFilter = '';
 
       // Make an HTTP GET request to Steam API endpoint with search query and filters
       fetch(`https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=${steamApiKey}`)
@@ -56,7 +54,24 @@
             gameLibraryDiv.innerHTML += '<p>No games found matching the search query and filters.</p>';
           } else {
             filteredGames.forEach(game => {
-              gameLibraryDiv.innerHTML += `<p>${game.name}</p>`;
+              const gameInfoUrl = `https://store.steampowered.com/api/appdetails/?appids=${game.appid}`;
+              fetch(gameInfoUrl)
+                .then(response => response.json())
+                .then(data => {
+                  const gameData = data[game.appid].data;
+                  const gameName = gameData.name;
+                  const gameImage = gameData.header_image;
+
+                  gameLibraryDiv.innerHTML += `
+                    <div>
+                      <img src="${gameImage}" alt="${gameName}" />
+                      <p>${gameName}</p>
+                    </div>
+                  `;
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
             });
           }
         })
@@ -70,3 +85,4 @@
   </script>
 </body>
 </html>
+
