@@ -7,7 +7,7 @@
 </head>
 <body>
   <header>
-    <h1>Steam Game Library</h1>
+    <h1>Playfolio: Game Lobby</h1>
     <nav>
     <a href="index.html">Home</a>
     <a href="steamLibrary.php">Games</a>
@@ -16,9 +16,7 @@
   </nav>
   </header>
   
-  <div id="gameLibrary">
-    <h2>Loading...</h2>
-  </div>
+  <div id="gameLibrary"></div>
 
   <script>
     // Function to fetch the game library data from Steam API based on search query and filters
