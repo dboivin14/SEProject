@@ -1,8 +1,8 @@
 // Function to handle search input
 function handleSearchInput() {
-    const searchInput = document.getElementById('searchInput');
-    const suggestionsContainer = document.getElementById('suggestionsContainer');
-    const searchTerm = searchInput.value.trim();
+    var searchInput = document.getElementById('searchInput');
+    var suggestionsContainer = document.getElementById('suggestionsContainer');
+    var searchTerm = searchInput.value.trim();
   
     // Clear suggestions container
     suggestionsContainer.innerHTML = '';
