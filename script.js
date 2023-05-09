@@ -1,7 +1,8 @@
+var searchInput = null;
+var suggestionsContainer = null;
+
 // Function to handle search input
 function handleSearchInput() {
-    var searchInput = document.getElementById('searchInput');
-    var suggestionsContainer = document.getElementById('suggestionsContainer');
     var searchTerm = searchInput.value.trim();
   
     // Clear suggestions container
@@ -41,10 +42,16 @@ function handleSearchInput() {
   }
   
   // Event listener for search button click
-  const searchButton = document.getElementById('searchButton');
-  searchButton.addEventListener('click', handleSearchButtonClick);
+  //const searchButton = document.getElementById('searchButton');
+  //searchButton.addEventListener('click', handleSearchButtonClick);
   
   // Event listener for search input keyup event
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('keyup', handleSearchInputKeyup);
   
+//#region
+document.addEventListener("DOMContentLoaded", function () {
+  searchInput = document.getElementById('searchInput');
+  suggestionsContainer = document.getElementById('suggestionsContainer');
+});
+//#endregion
