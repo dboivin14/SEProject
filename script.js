@@ -21,7 +21,7 @@ async function handleSearchInput() {
           const gameSuggestions = data;
   
           // Display the game suggestions
-          if (gameSuggestions.length == ) {
+          if (gameSuggestions.length == 0) {
             suggestionsContainer.innerHTML = '<p>No game suggestions found.</p>';
           } else {
             gameSuggestions.forEach(suggestion => {
