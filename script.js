@@ -46,12 +46,11 @@ function handleSearchInput() {
   //searchButton.addEventListener('click', handleSearchButtonClick);
   
   // Event listener for search input keyup event
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('keyup', handleSearchInputKeyup);
   
 //#region
 document.addEventListener("DOMContentLoaded", function () {
   searchInput = document.getElementById('searchInput');
   suggestionsContainer = document.getElementById('suggestionsContainer');
+  searchInput.addEventListener('keyup', handleSearchInputKeyup);
 });
 //#endregion
