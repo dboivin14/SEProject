@@ -18,10 +18,10 @@ async function handleSearchInput() {
       }})
         .then(response => response.json())
         .then(data => {
-          const gameSuggestions = data.suggestions;
+          const gameSuggestions = data;
   
           // Display the game suggestions
-          if (gameSuggestions.length === 0) {
+          if (gameSuggestions.length == ) {
             suggestionsContainer.innerHTML = '<p>No game suggestions found.</p>';
           } else {
             gameSuggestions.forEach(suggestion => {
